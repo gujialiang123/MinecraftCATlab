@@ -1,0 +1,29 @@
+name: Build client pack
+on:
+  push:
+    branches: [main]
+    paths: ['pack/**', 'scripts/build-client.sh', 'scripts/make-servers-dat.py', 'scripts/inspect-mrpack.py', 'server/server.properties', 'VERSION', '.github/workflows/build-pack.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.x'
+      - name: Install pinned Packwiz
+        run: go install github.com/packwiz/packwiz@ef87d964f8cbd52b3b13ea42453ef322290e2b9e
+      - name: Build and verify
+        run: |
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+          export PATH="$(go env GOPATH)/bin:$PATH"
+          ./jialiangcraft build-client
+          git diff --exit-code -- pack
+      - uses: actions/upload-artifact@v4
+        with:
+          name: JialiangCraft-1.0.0
+          path: dist/*.mrpack
+          if-no-files-found: error

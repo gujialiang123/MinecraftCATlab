@@ -1,0 +1,18 @@
+services:
+  jialiangcraft:
+    image: itzg/minecraft-server:java21
+    container_name: jialiangcraft
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      EULA: "TRUE"
+      TYPE: NEOFORGE
+      VERSION: "1.21.1"
+      NEOFORGE_VERSION: "21.1.252"
+      MEMORY: 8G
+      INIT_MEMORY: 4G
+      ONLINE_MODE: "TRUE"
+      ENABLE_WHITELIST: "FALSE"
+    volumes:
+      - ${JC_DATA_DIR:-../../jialiangcraft-data}:/data
+    stop_grace_period: 3m

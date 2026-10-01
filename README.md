@@ -1,0 +1,19 @@
+# JialiangCraft
+
+**Minecraft 1.21.1 · NeoForge 21.1.252 · 2–4 players**
+
+A small survival pack that grows from **Vanilla → Create → Modern Industrialization → Applied Energistics 2**. Farmer's Delight, The Aether, and improved dungeons add food and exploration without replacing the main progression.
+
+Waystones cost experience (3–50 points based on distance; interdimensional travel costs 50 points), so Create trains and other physical travel remain useful.
+
+## How to play
+
+1. Install [Prism Launcher](https://prismlauncher.org/).
+2. Download `JialiangCraft-1.0.0.mrpack` from the [GitHub Releases page](https://github.com/gujialiang123/MinecraftCATlab/releases) after the host publishes it, or get the file directly from the host.
+3. In Prism Launcher, select **Add Instance → Import** and choose the `.mrpack`.
+4. Log in with a legitimate Microsoft/Minecraft account, then click **Launch**.
+5. Connect to the host's Tailscale network and open **Multiplayer → JialiangCraft**. The server is preconfigured as `100.112.93.136:25565`.
+
+Any player with permitted Tailscale access and a legitimate Minecraft account can join. Proximity voice chat uses UDP port `24454` on the same Tailscale address; press **V** in game to configure your microphone.
+
+For details: [client](docs/CLIENT.md), [mod list](docs/MODLIST.md), [networking](docs/NETWORKING.md), [troubleshooting](docs/TROUBLESHOOTING.md).

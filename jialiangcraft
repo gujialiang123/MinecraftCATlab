@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+COMMAND="${1:-}"
+[[ -n "$COMMAND" ]] || { echo 'Usage: ./jialiangcraft {deploy|start|stop|restart|status|logs|backup|restore|build-client|update|validate}'; exit 2; }
+shift
+case "$COMMAND" in
+  deploy|start|stop|restart|status|logs|backup|restore|update|validate) exec "$ROOT/scripts/$COMMAND.sh" "$@" ;;
+  build-client) exec "$ROOT/scripts/build-client.sh" "$@" ;;
+  *) echo "Unknown command: $COMMAND" >&2; exit 2 ;;
+esac

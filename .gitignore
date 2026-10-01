@@ -1,0 +1,11 @@
+.tools/
+dist/
+.env
+*.log
+*.jar
+world/
+backups/
+crash-reports/
+user_jvm_args.txt
+*.tmp
+__pycache__/
