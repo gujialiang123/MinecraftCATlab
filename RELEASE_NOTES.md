@@ -1,7 +1,7 @@
-# JialiangCraft 1.0.0
+# JialiangCraft 1.0.1
 
 Minecraft 1.21.1 · NeoForge 21.1.252 · 21 pinned mods
 
-Create, Modern Industrialization, and Applied Energistics 2 form the main progression. Farmer's Delight, The Aether, YUNG's Better Dungeons, and lightweight quality-of-life mods round out the pack. Includes a preconfigured private Tailscale server entry and Simple Voice Chat.
+This update preconfigures the public server address `98.93.3.136:25565`. No mod versions changed from 1.0.0. The lab server remains bound to Tailscale and is reached through the VPS relay. Simple Voice Chat stays private on Tailscale and is not forwarded publicly.
 
-Install Prism Launcher, import `JialiangCraft-1.0.0.mrpack`, sign in with a legitimate Minecraft account, and join JialiangCraft from the Multiplayer menu. You need permitted access to the host's Tailscale network.
+Install Prism Launcher, import `JialiangCraft-1.0.1.mrpack`, sign in with a legitimate Minecraft account, and join JialiangCraft from the Multiplayer menu. There is no server password or whitelist.

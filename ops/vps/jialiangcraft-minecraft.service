@@ -1,0 +1,21 @@
+[Unit]
+Description=JialiangCraft public Minecraft TCP relay
+Wants=network-online.target
+After=network-online.target tailscaled.service
+
+[Service]
+Type=simple
+User=ubuntu
+ExecStart=/usr/bin/socat TCP4-LISTEN:25565,bind=0.0.0.0,reuseaddr,fork,max-children=16 TCP4:100.112.93.136:25565
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+RestrictAddressFamilies=AF_INET AF_UNIX
+MemoryMax=128M
+TasksMax=32
+
+[Install]
+WantedBy=multi-user.target

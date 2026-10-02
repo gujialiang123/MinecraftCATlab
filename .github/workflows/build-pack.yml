@@ -2,7 +2,7 @@ name: Build client pack
 on:
   push:
     branches: [main]
-    paths: ['pack/**', 'scripts/build-client.sh', 'scripts/make-servers-dat.py', 'scripts/inspect-mrpack.py', 'server/server.properties', 'VERSION', '.github/workflows/build-pack.yml']
+    paths: ['pack/**', 'scripts/build-client.sh', 'scripts/make-servers-dat.py', 'scripts/inspect-mrpack.py', 'server/public-address.txt', 'VERSION', '.github/workflows/build-pack.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,6 +24,6 @@ jobs:
           git diff --exit-code -- pack
       - uses: actions/upload-artifact@v4
         with:
-          name: JialiangCraft-1.0.0
+          name: JialiangCraft-1.0.1
           path: dist/*.mrpack
           if-no-files-found: error

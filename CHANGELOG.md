@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 — 2026-10-02
+
+- Added a public VPS relay for Minecraft TCP 25565 while keeping the lab server bound to Tailscale.
+- Updated the preconfigured client server address; mod and loader versions are unchanged.
+- Kept Microsoft/Minecraft account verification on and left the whitelist disabled at the owner's request.
+
 ## 1.0.0 — 2026-10-01
 
 - Initial Minecraft 1.21.1 / NeoForge 21.1.252 pack.

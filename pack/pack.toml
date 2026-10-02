@@ -1,12 +1,12 @@
 name = "JialiangCraft"
 author = "gujialiang123"
-version = "1.0.0"
+version = "1.0.1"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "5b2410d2242b0e62cdb6d962e5b3e176ab92336e95a60a1b981b613b3224a2cb"
+hash = "1def50d6c9dcda6c00eea121dfda65eebad38c0fec22a015eb1fbe2353409fc4"
 
 [versions]
 minecraft = "1.21.1"

@@ -1,4 +1,13 @@
-# Deployment validation — 2026-10-01
+# Public relay validation — 2026-10-02
+
+- The VPS `jialiangcraft-minecraft.service` is enabled and active, listening on public IPv4 TCP 25565. Its unit has a 128 MiB memory cap and allows at most 16 relay children. The existing SSH mapping service was left unchanged.
+- A TCP connection from the lab host to `98.93.3.136:25565` succeeded after AWS inbound TCP 25565 was opened.
+- A Minecraft status request through that public address returned protocol 1.21.1, the expected `JialiangCraft - Create / MI / AE2` MOTD, and the server's four-player limit.
+- The server still binds to Tailscale, keeps `online-mode=true`, and has the whitelist disabled at the owner's request. UDP voice chat is not publicly forwarded.
+- `JialiangCraft-1.0.1.mrpack` built with the public server entry and 21 pinned files. `./jialiangcraft validate` passed for the client pack, mod metadata, startup log, and private listeners.
+- A real player login from an external device has not been tested; the public network check reached the game's status protocol.
+
+# Original deployment validation — 2026-10-01
 
 ## Machine and runtime
 

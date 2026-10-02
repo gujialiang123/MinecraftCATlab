@@ -17,6 +17,6 @@ From the repository root:
 
 Waystones rules are in `pack/config/waystones-common.toml`: travel costs 0.02 XP points per block, bounded to 3–50 points, with 50 points for interdimensional travel. This is a common mod config, and the deployment copies it to the live `config/` directory.
 
-`server.properties` binds TCP 25565 to the Tailscale IP. Online authentication remains enabled. The whitelist is disabled at the owner's request, so any authenticated player permitted by the Tailscale network policy may join. To re-enable a whitelist later, change `white-list` and `enforce-whitelist` to `true`, restart, then add player names with `tmux send-keys -t jialiangcraft 'whitelist add PLAYER_NAME' Enter`.
+`server.properties` binds TCP 25565 to the Tailscale IP. The VPS relays public TCP 25565 to this host; see [networking](NETWORKING.md). Online authentication remains enabled. The whitelist is disabled at the owner's request, so any authenticated player with the compatible pack can join through the public address. To re-enable a whitelist later, change `white-list` and `enforce-whitelist` to `true`, restart, then add player names with `tmux send-keys -t jialiangcraft 'whitelist add PLAYER_NAME' Enter`.
 
 Packwiz is needed to build and validate the client. Use an installed `packwiz` or place the official Linux binary at `.tools/packwiz` (ignored by Git). For source builds, follow [Packwiz installation](https://packwiz.infra.link/installation/). Python 3.12, Java 21, `tmux`, `curl`, and `tar` are also used.

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Build a deterministic Prism-compatible server list from server.properties."""
+"""Build a deterministic Prism-compatible server list for the public relay."""
 import gzip
 import struct
 from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
-properties = dict(line.split('=', 1) for line in (root / 'server/server.properties').read_text().splitlines() if '=' in line and not line.startswith('#'))
-address = f"{properties['server-ip']}:{properties['server-port']}"
+address = (root / 'server/public-address.txt').read_text().strip()
+if not address or any(char.isspace() for char in address):
+    raise ValueError('server/public-address.txt must contain one host:port')
 
 def nbt_string(value):
     raw = value.encode('utf-8')
