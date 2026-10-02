@@ -20,6 +20,7 @@
 - Waystones live config has a 3–50 XP point bounded travel cost and 50 points for cross-dimension travel.
 - `JialiangCraft-1.0.0.mrpack` exported successfully and contains correct game/loader versions, client/server mod environment metadata, client server list, and configs.
 - A clean temporary Packwiz directory rebuilt the same `.mrpack` manifest.
+- GitHub Release v1.0.0 was published by GitHub Actions. The public asset was downloaded, inspected, and its Modrinth manifest matched the local build.
 - Safe backup created and gzip archive verified under `jialiangcraft-data/backups/daily/`; server restarted and validated afterward.
 - User crontab contains `@reboot` startup and 05:00 America/New_York daily backup. No reboot or live-world restore test was performed.
 
@@ -27,4 +28,3 @@
 
 - Docker container launch and automatic Docker restart could not be tested without Docker group access. The active `tmux` service and user cron provide current operation and reboot startup.
 - Remote gameplay from a second Tailscale device and voice audio have not been tested with a real player.
-- GitHub Release upload requires GitHub CLI authentication; the `.mrpack` is available locally under `dist/`.

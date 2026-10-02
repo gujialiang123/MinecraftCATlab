@@ -9,7 +9,7 @@ Waystones cost experience (3–50 points based on distance; interdimensional tra
 ## How to play
 
 1. Install [Prism Launcher](https://prismlauncher.org/).
-2. Download `JialiangCraft-1.0.0.mrpack` from the [GitHub Releases page](https://github.com/gujialiang123/MinecraftCATlab/releases) after the host publishes it, or get the file directly from the host.
+2. Download [JialiangCraft-1.0.0.mrpack](https://github.com/gujialiang123/MinecraftCATlab/releases/download/v1.0.0/JialiangCraft-1.0.0.mrpack) from GitHub Releases.
 3. In Prism Launcher, select **Add Instance → Import** and choose the `.mrpack`.
 4. Log in with a legitimate Microsoft/Minecraft account, then click **Launch**.
 5. Connect to the host's Tailscale network and open **Multiplayer → JialiangCraft**. The server is preconfigured as `100.112.93.136:25565`.
