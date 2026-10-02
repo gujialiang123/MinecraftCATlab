@@ -5,6 +5,8 @@
 - Installed 24 server-side mods with SHA-512 checks, including both private FTB mods. The live NeoForge log lists all five requested mods and reports a successful `Done (...)!` startup.
 - `./jialiangcraft validate` passed for client metadata, required server JARs, startup log, and the Tailscale listeners.
 - A Minecraft status request through the VPS public address `98.93.3.136:25565` returned version 1.21.1, the expected MOTD, and a four-player maximum. It reported zero connected players at the time of the check.
+- GitHub Actions completed both the client-pack build and v1.1.0 release successfully. The public `.mrpack` was downloaded and inspected; its manifest and archive entries match the locally validated build.
+- With zero players online, the Java process used about 3.20 GiB resident memory and effectively no CPU over a five-second sample. Gameplay load was not measured.
 - A full client login and in-game use of the five mods remain untested; the client must first add both FTB JARs manually.
 
 # Public relay validation — 2026-10-02
