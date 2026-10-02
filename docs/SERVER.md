@@ -13,7 +13,9 @@ From the repository root:
 | Update pack | `./jialiangcraft update` |
 | Validate | `./jialiangcraft validate` |
 
-`deploy` installs the pinned NeoForge loader if needed, copies committed configs, downloads only server-side mod JARs from the pinned Packwiz URLs, verifies SHA-512, and starts Minecraft. Never manually copy client-only JARs to the server. `update` builds the client, backs up the live state, stops the server, deploys, and validates startup. Review compatibility and bump `VERSION` before running it.
+`deploy` installs the pinned NeoForge loader if needed, copies committed configs, downloads server-side mod JARs from pinned metadata, verifies SHA-512, and starts Minecraft. Never manually copy client-only JARs to the server. `update` builds the client, backs up the live state, stops the server, deploys, and validates startup. Review compatibility and bump `VERSION` before running it.
+
+The live server also reads two private, pinned metadata files from `jialiangcraft-data/private-mods/` for FTB Ultimine and FTB Library. This directory stays outside Git and is included in server backups. The GitHub `.mrpack` has neither FTB mod; every player must install the matching NeoForge 1.21.1 files from CurseForge as described in [client setup](CLIENT.md). A fresh machine needs the private metadata restored before `deploy`, or those two mods will be absent from the server.
 
 Waystones rules are in `pack/config/waystones-common.toml`: travel costs 0.02 XP points per block, bounded to 3–50 points, with 50 points for interdimensional travel. This is a common mod config, and the deployment copies it to the live `config/` directory.
 

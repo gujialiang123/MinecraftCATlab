@@ -13,12 +13,17 @@ data = Path(os.environ.get('JC_DATA_DIR', root.parent / 'jialiangcraft-data'))
 mods = data / 'mods'
 stage = data / 'mods.staging'
 previous = data / 'mods.previous'
+metadata = sorted((root / 'pack/mods').glob('*.pw.toml'))
+private_metadata = data / 'private-mods'
+if private_metadata.is_dir():
+    metadata.extend(sorted(private_metadata.glob('*.pw.toml')))
 if stage.exists():
     shutil.rmtree(stage)
 stage.mkdir(parents=True)
 count = 0
+seen_filenames = set()
 try:
-    for path in sorted((root / 'pack/mods').glob('*.pw.toml')):
+    for path in metadata:
         meta = tomllib.loads(path.read_text())
         if meta.get('side') == 'client':
             continue
@@ -28,6 +33,9 @@ try:
         filename = Path(meta['filename']).name
         if filename != meta['filename']:
             raise RuntimeError(f'{path.name}: unsafe filename')
+        if filename in seen_filenames:
+            raise RuntimeError(f'{path.name}: duplicate server mod filename {filename}')
+        seen_filenames.add(filename)
         target = stage / filename
         if (mods / filename).exists():
             shutil.copy2(mods / filename, target)

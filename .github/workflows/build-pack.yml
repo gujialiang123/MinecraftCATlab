@@ -24,6 +24,6 @@ jobs:
           git diff --exit-code -- pack
       - uses: actions/upload-artifact@v4
         with:
-          name: JialiangCraft-1.0.1
+          name: JialiangCraft-1.1.0
           path: dist/*.mrpack
           if-no-files-found: error

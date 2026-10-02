@@ -1,3 +1,12 @@
+# 1.1.0 mod update validation — 2026-10-02
+
+- Created and verified a fresh backup before changing server mods: `jialiangcraft-20261002T051931Z.tar.gz`. It contains the world and private FTB metadata.
+- Built `JialiangCraft-1.1.0.mrpack` from Packwiz with 26 pinned mod references, including AppleSkin, Corpse, both compasses, and Architectury API. The archive contains neither FTB JARs nor FTB metadata; client installation of FTB Ultimine and FTB Library is manual.
+- Installed 24 server-side mods with SHA-512 checks, including both private FTB mods. The live NeoForge log lists all five requested mods and reports a successful `Done (...)!` startup.
+- `./jialiangcraft validate` passed for client metadata, required server JARs, startup log, and the Tailscale listeners.
+- A Minecraft status request through the VPS public address `98.93.3.136:25565` returned version 1.21.1, the expected MOTD, and a four-player maximum. It reported zero connected players at the time of the check.
+- A full client login and in-game use of the five mods remain untested; the client must first add both FTB JARs manually.
+
 # Public relay validation — 2026-10-02
 
 - The VPS `jialiangcraft-minecraft.service` is enabled and active, listening on public IPv4 TCP 25565. Its unit has a 128 MiB memory cap and allows at most 16 relay children. The existing SSH mapping service was left unchanged.

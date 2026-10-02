@@ -9,7 +9,7 @@ tar -tzf "$ARCHIVE" >/dev/null || jc_die 'Backup archive is corrupt'
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 SAFETY="$JC_DATA_DIR/backups/pre-restore-$STAMP"
 mkdir -p "$SAFETY"
-for path in world server.properties whitelist.json ops.json banned-ips.json banned-players.json config defaultconfigs eula.txt; do
+for path in world server.properties whitelist.json ops.json banned-ips.json banned-players.json config defaultconfigs private-mods eula.txt; do
   [[ -e "$JC_DATA_DIR/$path" ]] && mv "$JC_DATA_DIR/$path" "$SAFETY/"
 done
 tar -C "$JC_DATA_DIR" -xzf "$ARCHIVE"

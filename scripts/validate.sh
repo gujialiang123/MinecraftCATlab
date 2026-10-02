@@ -5,12 +5,18 @@ cd "$JC_ROOT/pack"
 "$PACKWIZ" refresh >/dev/null
 [[ "$(sed -n 's/^minecraft = "\([^"]*\)"/\1/p' pack.toml)" == 1.21.1 ]] || jc_die 'Wrong Minecraft version'
 [[ "$(sed -n 's/^neoforge = "\([^"]*\)"/\1/p' pack.toml)" == 21.1.252 ]] || jc_die 'Wrong NeoForge version'
-for mod in create modern-industrialization ae2 farmers-delight aether yungs-better-dungeons; do
+for mod in create modern-industrialization ae2 farmers-delight aether yungs-better-dungeons appleskin corpse natures-compass explorers-compass architectury-api; do
   [[ -f "mods/$mod.pw.toml" ]] || jc_die "Missing core mod: $mod"
 done
-for mod in create modern-industrialization ae2 farmers-delight aether yungs-better-dungeons; do
+for mod in create modern-industrialization ae2 farmers-delight aether yungs-better-dungeons appleskin corpse natures-compass explorers-compass architectury-api; do
   filename="$(sed -n 's/^filename = "\([^"]*\)"/\1/p' "mods/$mod.pw.toml")"
   [[ -f "$JC_DATA_DIR/mods/$filename" ]] || jc_die "Core server JAR missing: $filename"
+done
+for mod in ftb-ultimine ftb-library; do
+  metadata="$JC_DATA_DIR/private-mods/$mod.pw.toml"
+  [[ -f "$metadata" ]] || jc_die "Private server metadata missing: $mod"
+  filename="$(sed -n 's/^filename = "\([^"]*\)"/\1/p' "$metadata")"
+  [[ -f "$JC_DATA_DIR/mods/$filename" ]] || jc_die "Private server JAR missing: $filename"
 done
 VERSION="$(tr -d '\n' < "$JC_ROOT/VERSION")"
 MRPACK="$JC_ROOT/dist/JialiangCraft-$VERSION.mrpack"

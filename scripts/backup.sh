@@ -18,7 +18,7 @@ trap restart_if_needed EXIT
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 FILE="$JC_DATA_DIR/backups/daily/jialiangcraft-$STAMP.tar.gz"
 PATHS=()
-for path in world server.properties whitelist.json ops.json banned-ips.json banned-players.json config defaultconfigs eula.txt; do
+for path in world server.properties whitelist.json ops.json banned-ips.json banned-players.json config defaultconfigs private-mods eula.txt; do
   [[ -e "$JC_DATA_DIR/$path" ]] && PATHS+=("$path")
 done
 [[ ${#PATHS[@]} -gt 0 ]] || jc_die 'No server state to back up'
