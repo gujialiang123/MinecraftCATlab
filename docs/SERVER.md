@@ -1,6 +1,8 @@
 # Server operations
 
-The active configuration is official **Minecraft Java Edition 26.3 vanilla survival**, with a fresh random world at `/home/jgu7/work/jialiangcraft-vanilla-26.3-data`, outside Git. Exact server and Java downloads are pinned in `server/vanilla.lock.json` and `server/java.lock.json`. The server JAR is checked against its official SHA-1 before use.
+The active configuration is official **Minecraft Java Edition 26.3 vanilla survival**, with an inspected forest/grass spawn in a fresh world at `/home/jgu7/work/jialiangcraft-vanilla-26.3-data`, outside Git. Exact server and Java downloads are pinned in `server/vanilla.lock.json` and `server/java.lock.json`. The server JAR is checked against its official SHA-1 before use.
+
+For a requested world reset, inspect a private generated candidate with `python3 scripts/inspect-spawn.py /absolute/path/to/candidate/world --radius 4` before promotion. It reads actual full chunks and samples surface biomes, ground, trees, and elevation without printing seeds or player data. Preserve the live operator list when replacing only the world.
 
 Java 25 is isolated under `.tools/java25`; the host's default Java remains available for other users and the archived server. The detached `tmux` session is still named `jialiangcraft`. Startup uses `-Xms1G -Xmx4G -XX:ActiveProcessorCount=4` with nice level 10. The heap limit excludes native JVM memory; the processor setting controls JVM sizing and is not a hard CPU quota. Docker is not the active runtime.
 

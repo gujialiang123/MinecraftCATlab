@@ -2,7 +2,7 @@
 
 **Minecraft Java Edition 26.3 · Official vanilla survival · Up to 4 players**
 
-The current server configuration uses a fresh random world, easy difficulty, and the official Minecraft server. A bonus chest is generated near the initial world spawn. Owner-approved operators can use server commands; other players have ordinary survival permissions. Command blocks and RCON are disabled. No mods, plugins, or extra datapacks are required.
+The current server configuration uses a fresh world with an inspected oak/birch forest and grass near spawn, easy difficulty, and the official Minecraft server. A bonus chest is generated near the initial world spawn. Owner-approved operators can use server commands; other players have ordinary survival permissions. Command blocks and RCON are disabled. No mods, plugins, or extra datapacks are required.
 
 ## How to play
 

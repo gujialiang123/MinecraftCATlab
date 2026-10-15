@@ -1,6 +1,6 @@
 # JialiangCraft 2.0.0 configuration notes
 
-Official Minecraft Java Edition 26.3 vanilla survival, with a fresh random world, easy difficulty, a spawn bonus chest, and a four-player maximum.
+Official Minecraft Java Edition 26.3 vanilla survival, with a fresh world and inspected forest/grass spawn, easy difficulty, a spawn bonus chest, and a four-player maximum.
 
 - Use a vanilla **Java Edition 26.3** client and connect to `98.93.3.136:25565`. No modpack or manual FTB downloads are required.
 - Keep online account authentication enabled, easy difficulty, and the owner's disabled whitelist. Generate the initial spawn bonus chest with the official `--bonusChest` option.

@@ -1,3 +1,12 @@
+# Inspected forest-world replacement — 2026-10-15
+
+- At the owner's request, prepared private vanilla candidates on loopback TCP 25566 before touching the public server. Each used a 2 GiB maximum heap, two JVM-visible processors, and nice level 15. Selected a new forest candidate after inspecting its actual saved full chunks.
+- Surface checks within four chunks of spawn covered 81 fully generated chunks: forest, river, ocean, beach, and stony shore, with no desert samples. Found 101 sampled grass blocks and oak/birch trees in 39 chunks. The sampled surface elevations range from 62 to 76. Spawn is `(160, 78, 160)` and the actual unopened bonus chest is at `(170, 70, 163)`.
+- Cleared all temporary forced-chunk tickets and gracefully stopped the candidate before promotion. Verified the selected world has a different seed from the desert world; no player data was copied into the new world. Seeds remain private.
+- Cleanly stopped the public server and verified backup `jialiangcraft-20261015T064041Z.tar.gz`. Kept a permanent `pre-forest-refresh-20261015T064041Z.tar.gz` copy and archived the prior world at `jialiangcraft-vanilla-26.3-data/archives/world-desert-before-forest-20261015T064041Z`.
+- Promoted only the selected world; the private operator list remained byte-for-byte unchanged. Live validation passed for official vanilla 26.3, easy survival, bonus chest, and the approved operator. Public `98.93.3.136:25565` returned the running 26.3 server.
+- Both private candidate servers are stopped, loopback 25566 is closed, and only the public server Java process remains. Actual player login and visual gameplay checks were not performed for this replacement.
+
 # Owner-approved operator access — 2026-10-15
 
 - At the owner's explicit request, saved and byte-verified the previous operator list under the private server's `backups/permissions/` directory, then granted the requested online account level-4 operator permissions through the server console. No restart or world replacement was performed.
