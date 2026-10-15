@@ -1,3 +1,10 @@
+# Owner-approved operator access — 2026-10-15
+
+- At the owner's explicit request, saved and byte-verified the previous operator list under the private server's `backups/permissions/` directory, then granted the requested online account level-4 operator permissions through the server console. No restart or world replacement was performed.
+- Verified the console success message and persisted private operator list: exactly the approved account has operator access. No player identity or operator-list contents are published here. Live `ops.json` remains the canonical private list and is included in scheduled world backups.
+- The world keeps easy survival, a bonus chest, and `allowCommands=false` as its default; dedicated-server operators can use administrative commands despite that default. Command blocks, RCON, and the management API remain disabled.
+- Updated validation to accept the private operator list instead of requiring it to be empty; the live validation passed with one operator while both players remained connected. Previous no-operator validation records below describe the earlier configuration.
+
 # Fresh easy-survival world — 2026-10-15
 
 - Following the owner's explicit request for a new easy world, cleanly stopped the hard server and verified backup `jialiangcraft-20261015T054418Z.tar.gz`. Kept a permanent `pre-easy-new-world-20261015T054418Z.tar.gz` copy and archived the prior world at `jialiangcraft-vanilla-26.3-data/archives/world-before-easy-20261015T054418Z`.

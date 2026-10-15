@@ -21,15 +21,16 @@ source_props = dict(line.split('=', 1) for line in (root / 'server/server.proper
 difficulty = source_props['difficulty']
 for key, value in {'gamemode':'survival', 'difficulty':difficulty, 'hardcore':'false', 'online-mode':'true', 'white-list':'false', 'server-ip':'100.112.93.136', 'server-port':'25565', 'level-name':'world', 'enable-command-block':'false', 'enable-rcon':'false', 'management-server-enabled':'false'}.items():
     assert props.get(key) == value, f'Unexpected {key}: {props.get(key)}'
-assert json.loads((data / 'ops.json').read_text()) == [], 'Player operators must be disabled'
+operators = json.loads((data / 'ops.json').read_text())
+assert isinstance(operators, list), 'Invalid private operator list'
 world = read_gzip(data / 'world/level.dat')['Data']
-assert world['GameType'] == 0 and world['allowCommands'] == 0, 'World must be survival without cheats'
+assert world['GameType'] == 0 and world['allowCommands'] == 0, 'World must default to survival without global command permissions'
 assert world['difficulty_settings']['difficulty'] == difficulty, 'Saved difficulty does not match the configured difficulty'
 assert world['difficulty_settings']['hardcore'] == 0, 'Hardcore must be disabled'
 assert world['WasModded'] == 0 and world['DataPacks']['Enabled'] == ['vanilla'], 'Unexpected modded world or enabled datapack'
 generation = read_gzip(data / 'world/data/minecraft/world_gen_settings.dat')['data']
 assert generation['bonus_chest'] == 1, 'Spawn bonus chest was not enabled during world generation'
-print(f'Verified official vanilla {lock["minecraft"]}, {difficulty} survival, bonus chest, and disabled player cheats')
+print(f'Verified official vanilla {lock["minecraft"]}, {difficulty} survival, bonus chest, and {len(operators)} privately managed operator(s)')
 PY
 jc_running || jc_die 'Minecraft server is not running'
 [[ -f "$JC_DATA_DIR/logs/latest.log" ]] || jc_die 'Minecraft log missing'
