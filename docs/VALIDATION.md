@@ -1,3 +1,10 @@
+# Fresh easy-survival world — 2026-10-15
+
+- Following the owner's explicit request for a new easy world, cleanly stopped the hard server and verified backup `jialiangcraft-20261015T054418Z.tar.gz`. Kept a permanent `pre-easy-new-world-20261015T054418Z.tar.gz` copy and archived the prior world at `jialiangcraft-vanilla-26.3-data/archives/world-before-easy-20261015T054418Z`.
+- Generated a new world with a different random seed, easy difficulty, survival mode, `hardcore=0`, `allowCommands=0`, and `bonus_chest=1`. Inspected the actual saved settings and found the generated bonus chest at `(43, 64, -9)`, near global spawn `(32, 64, -16)`.
+- `./jialiangcraft validate` passed, including empty operators, disabled command blocks/APIs, and the official vanilla artifact. Validation derives the requested difficulty from committed server properties so it checks the active configuration.
+- The server restarted successfully and public `98.93.3.136:25565` returned vanilla 26.3. Existing managed reboot and daily-backup jobs continue to use the active vanilla directory. No real-player login test was performed in this refresh.
+
 # Hard survival and bonus-chest refresh — 2026-10-15
 
 - At the owner's request, backed up the unused vanilla world before refreshing it. Kept the verified `pre-hard-bonus-20261015T052640Z.tar.gz` backup and the prior world at `jialiangcraft-vanilla-26.3-data/archives/world-before-hard-bonus-20261015T052640Z`. The historical NeoForge directory was not changed.

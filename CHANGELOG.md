@@ -4,6 +4,7 @@
 
 - Configure official Minecraft Java Edition 26.3 vanilla survival with a fresh random world, normal difficulty, and up to four players.
 - Owner-requested follow-up on 2026-10-15: configure hard difficulty and a spawn bonus chest using the official `--bonusChest` option; refresh the unused 26.3 world only after a verified backup and archival. Keep player cheats disabled with no operators and command blocks disabled.
+- Later owner-requested follow-up on 2026-10-15: replace the hard-difficulty world with a completely new random easy-difficulty world after a verified backup and archival. Preserve the spawn bonus chest, disabled player cheats, empty operator list, disabled command blocks, and existing connection address.
 - Separate new state into `jialiangcraft-vanilla-26.3-data`; preserve the old NeoForge world and pre-switch backup at `jialiangcraft-data` without converting that world.
 - Pin the official server and an isolated Java 25 runtime. Configure a 1 GiB initial / 4 GiB maximum heap, four JVM-visible processors, and nice level 10 to reduce impact on the shared lab machine.
 - Keep the existing public TCP address, online account authentication, disabled whitelist, reboot startup, and daily backups. Require compatible vanilla runtime metadata for restore.

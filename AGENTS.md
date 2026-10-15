@@ -1,6 +1,6 @@
 # JialiangCraft agent rules
 
-- The active server is official Minecraft Java Edition **26.3 vanilla survival**, authorized by the owner on 2026-10-15, with hard difficulty, a fresh random world, and a spawn bonus chest. Keep player cheats disabled (`allowCommands=false`, no operators, command blocks disabled). Do not add mods, plugins, third-party datapacks, or a server fork without explicit approval.
+- The active server is official Minecraft Java Edition **26.3 vanilla survival**, authorized by the owner on 2026-10-15, with easy difficulty, a fresh random world, and a spawn bonus chest. Keep player cheats disabled (`allowCommands=false`, no operators, command blocks disabled). Do not add mods, plugins, third-party datapacks, or a server fork without explicit approval.
 - Treat `server/vanilla.lock.json`, `server/java.lock.json`, and `server/server.properties` as the active runtime and configuration sources. Pin exact official server and Java downloads with hashes; do not silently track latest releases.
 - Active data is `/home/jgu7/work/jialiangcraft-vanilla-26.3-data`. Preserve the old NeoForge installation at `/home/jgu7/work/jialiangcraft-data` and its verified pre-switch backup. Never open that old world with vanilla or upgrade it during deployment.
 - Never commit secrets, `.env`, live worlds, player data, backups, downloaded JARs, or downloaded Java runtimes.
