@@ -1,3 +1,12 @@
+# Hard survival and bonus-chest refresh — 2026-10-15
+
+- At the owner's request, backed up the unused vanilla world before refreshing it. Kept the verified `pre-hard-bonus-20261015T052640Z.tar.gz` backup and the prior world at `jialiangcraft-vanilla-26.3-data/archives/world-before-hard-bonus-20261015T052640Z`. The historical NeoForge directory was not changed.
+- Regenerated the vanilla world using `difficulty=hard` and the official `--bonusChest` startup option. Read the actual saved NBT: `difficulty_settings.difficulty=hard`, `hardcore=0`, `GameType=0`, `allowCommands=0`, and `bonus_chest=1` in `data/minecraft/world_gen_settings.dat`.
+- Inspected saved overworld region data and found the actual unopened bonus chest at `(-57, 63, 54)`, with the `minecraft:chests/spawn_bonus_chest` loot table. The global spawn is nearby at `(-64, 64, 48)`.
+- Verified an empty operator list, disabled command blocks, RCON, and management API, and only the vanilla datapack enabled. The validation command now checks the saved hard/no-cheat/bonus-chest settings as well as server properties.
+- Saved and verified the refreshed world's initial backup `jialiangcraft-20261015T052924Z.tar.gz`; its automatic restart retained the hard/no-cheat/bonus-chest settings, and the backup compatibility check passed.
+- Local and public Minecraft status requests returned the running vanilla 26.3 server. Actual player login and gameplay remain untested.
+
 # Vanilla 26.3 fresh-world migration — 2026-10-15
 
 - The owner requested an official vanilla 26.3 survival server and a new world. Mojang's release metadata confirms version 26.3 requires Java 25. The official server JAR's size and SHA-1 match `server/vanilla.lock.json`; the isolated Temurin 25 archive was checked against the SHA-256 in `server/java.lock.json`. Host Java remains 21.

@@ -19,7 +19,7 @@ From the repository root:
 
 `deploy` uses the pinned official server, Java runtime, and committed server properties. It must not copy Packwiz configs, install NeoForge, or synchronize legacy mods. `update` applies the reviewed pinned configuration after a verified backup; it is not a request to download whatever version is latest. Legacy modpack tooling is disabled for the active vanilla setup.
 
-The world uses survival, normal difficulty, and a four-player maximum. `server/server.properties` keeps `online-mode=true`, `white-list=false`, and `enforce-whitelist=false`. It binds TCP 25565 to `100.112.93.136`; the existing VPS relay exposes `98.93.3.136:25565`. See [networking](NETWORKING.md).
+The world uses survival, hard difficulty, and a four-player maximum. Initial world generation uses the official `--bonusChest` startup option to place a bonus chest near spawn. Keep `ops.json` empty, `enable-command-block=false`, and the saved world's `allowCommands=false` so players have no operator or cheat permissions. `server/server.properties` keeps `online-mode=true`, `white-list=false`, and `enforce-whitelist=false`. It binds TCP 25565 to `100.112.93.136`; the existing VPS relay exposes `98.93.3.136:25565`. See [networking](NETWORKING.md).
 
 Reboot startup and a daily 05:00 backup are managed by `scripts/install-cron.sh`. Keep the host scheduling timezone at America/New_York and reinstall the managed cron block after changing the active data directory. See [backups](BACKUPS.md) and [performed validation](VALIDATION.md).
 
