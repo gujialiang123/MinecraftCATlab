@@ -1,3 +1,16 @@
+# Vanilla 26.3 fresh-world migration — 2026-10-15
+
+- The owner requested an official vanilla 26.3 survival server and a new world. Mojang's release metadata confirms version 26.3 requires Java 25. The official server JAR's size and SHA-1 match `server/vanilla.lock.json`; the isolated Temurin 25 archive was checked against the SHA-256 in `server/java.lock.json`. Host Java remains 21.
+- Before the change, the old NeoForge world was cleanly stopped, archived, verified, and restarted. A permanent migration backup is retained at `/home/jgu7/work/jialiangcraft-data/backups/pre-vanilla-26.3-20261015T051233Z.tar.gz`. The complete old installation and world remain in that old data directory.
+- Vanilla uses the separate `/home/jgu7/work/jialiangcraft-vanilla-26.3-data` directory. Its first startup log reported `No existing world data, creating new world` and `Default game type: SURVIVAL`. No old world, mod JARs, plugins, or custom datapacks were imported.
+- Fixed an inherited tmux environment that initially restarted the legacy runtime: the launcher now explicitly sets the session's data directory. After the correction and a backup/restart cycle, the actual Java process runs the official `server.jar` from the new vanilla directory.
+- `./jialiangcraft validate` passed artifact, runtime marker, saved-world, survival/normal-difficulty settings, account authentication, disabled whitelist, and listener checks. Java's IPv4-mapped IPv6 listener is handled correctly.
+- Game status requests through both Tailscale and public `98.93.3.136:25565` returned version 26.3 (protocol 777), the vanilla MOTD, and a four-player maximum. The former voice UDP listener is absent.
+- The first vanilla backup, `jialiangcraft-20261015T051906Z.tar.gz`, was verified and followed by a successful vanilla restart. The backup compatibility checker accepts it and refuses the old modded archive before live-state changes. Twelve safety tests cover incompatible backups, unsafe archive entries, refusal to install over existing modded/unmarked worlds, and restoring from a stable copy when backup retention deletes the selected original archive.
+- Reinstalled the managed user cron block for the new directory: reboot startup and daily 05:00 America/New_York backups. No reboot or live-world restore was performed.
+- Runtime uses a 1 GiB initial / 4 GiB maximum heap, four JVM-visible processors, and nice level 10. With zero players, a five-second sample measured approximately 0.98 GiB resident memory and 0.01 CPU cores. These are idle measurements, and JVM settings are not a hard total resource quota.
+- Actual player login and gameplay remain untested. Players should use a vanilla Java Edition 26.3 client.
+
 # 1.1.0 mod update validation — 2026-10-02
 
 - Created and verified a fresh backup before changing server mods: `jialiangcraft-20261002T051931Z.tar.gz`. It contains the world and private FTB metadata.

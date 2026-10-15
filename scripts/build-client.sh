@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 source "$(dirname "$0")/common.sh"
+jc_die 'The active server is vanilla 26.3: use the standard Java 26.3 client. Historical modpack tooling is preserved at tag v1.1.0.'
 PACKWIZ="$(jc_packwiz)"
 VERSION="$(tr -d '\n' < "$JC_ROOT/VERSION")"
 mkdir -p "$JC_ROOT/dist"

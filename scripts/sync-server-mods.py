@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Install server-side JARs from pinned Packwiz metadata and verify SHA-512."""
+"""Historical modpack installer; disabled for the active vanilla server."""
+raise SystemExit('Mod installation is disabled for the vanilla server; use tag v1.1.0 for the old modpack')
 import hashlib
 import os
 import shutil

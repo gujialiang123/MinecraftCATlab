@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 source "$(dirname "$0")/common.sh"
+jc_assert_session_data
 mkdir -p "$JC_DATA_DIR/backups/daily" "$JC_DATA_DIR/backups/weekly"
 exec 9>"$JC_DATA_DIR/backups/.backup.lock"
 flock -n 9 || jc_die 'Another backup or restore is already running'
@@ -18,7 +19,7 @@ trap restart_if_needed EXIT
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 FILE="$JC_DATA_DIR/backups/daily/jialiangcraft-$STAMP.tar.gz"
 PATHS=()
-for path in world server.properties whitelist.json ops.json banned-ips.json banned-players.json config defaultconfigs private-mods eula.txt; do
+for path in world server.properties whitelist.json ops.json banned-ips.json banned-players.json config defaultconfigs private-mods .runtime.json user_jvm_args.txt eula.txt; do
   [[ -e "$JC_DATA_DIR/$path" ]] && PATHS+=("$path")
 done
 [[ ${#PATHS[@]} -gt 0 ]] || jc_die 'No server state to back up'

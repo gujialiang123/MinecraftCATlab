@@ -1,24 +1,32 @@
 # Server operations
 
-The live server is at `/home/jgu7/work/jialiangcraft-data`, outside Git. NeoForge 21.1.252 uses Java 21 with a 4 GiB initial and 8 GiB maximum heap. The Java server runs in a detached `tmux` session because this account currently cannot access the host Docker daemon. The Docker Compose definition is in `server/docker-compose.yml` for a future Docker-enabled deployment; it has not been used or validated.
+The active configuration is official **Minecraft Java Edition 26.3 vanilla survival**, with a fresh random world at `/home/jgu7/work/jialiangcraft-vanilla-26.3-data`, outside Git. Exact server and Java downloads are pinned in `server/vanilla.lock.json` and `server/java.lock.json`. The server JAR is checked against its official SHA-1 before use.
+
+Java 25 is isolated under `.tools/java25`; the host's default Java remains available for other users and the archived server. The detached `tmux` session is still named `jialiangcraft`. Startup uses `-Xms1G -Xmx4G -XX:ActiveProcessorCount=4` with nice level 10. The heap limit excludes native JVM memory; the processor setting controls JVM sizing and is not a hard CPU quota. Docker is not the active runtime.
 
 From the repository root:
 
 | Task | Command |
 |---|---|
-| Deploy from Packwiz metadata | `./jialiangcraft deploy` |
+| Deploy the pinned official vanilla runtime | `./jialiangcraft deploy` |
 | Start / stop / restart | `./jialiangcraft start`, `./jialiangcraft stop`, `./jialiangcraft restart` |
 | Status | `./jialiangcraft status` |
 | Follow logs | `./jialiangcraft logs` |
-| Update pack | `./jialiangcraft update` |
-| Validate | `./jialiangcraft validate` |
+| Back up before applying the pinned runtime/configuration | `./jialiangcraft update` |
+| Create a verified state backup | `./jialiangcraft backup` |
+| Restore a compatible vanilla backup | `./jialiangcraft restore /absolute/path/to/backup.tar.gz` |
+| Validate the active deployment | `./jialiangcraft validate` |
 
-`deploy` installs the pinned NeoForge loader if needed, copies committed configs, downloads server-side mod JARs from pinned metadata, verifies SHA-512, and starts Minecraft. Never manually copy client-only JARs to the server. `update` builds the client, backs up the live state, stops the server, deploys, and validates startup. Review compatibility and bump `VERSION` before running it.
+`deploy` uses the pinned official server, Java runtime, and committed server properties. It must not copy Packwiz configs, install NeoForge, or synchronize legacy mods. `update` applies the reviewed pinned configuration after a verified backup; it is not a request to download whatever version is latest. Legacy modpack tooling is disabled for the active vanilla setup.
 
-The live server also reads two private, pinned metadata files from `jialiangcraft-data/private-mods/` for FTB Ultimine and FTB Library. This directory stays outside Git and is included in server backups. The GitHub `.mrpack` has neither FTB mod; every player must install the matching NeoForge 1.21.1 files from CurseForge as described in [client setup](CLIENT.md). A fresh machine needs the private metadata restored before `deploy`, or those two mods will be absent from the server.
+The world uses survival, normal difficulty, and a four-player maximum. `server/server.properties` keeps `online-mode=true`, `white-list=false`, and `enforce-whitelist=false`. It binds TCP 25565 to `100.112.93.136`; the existing VPS relay exposes `98.93.3.136:25565`. See [networking](NETWORKING.md).
 
-Waystones rules are in `pack/config/waystones-common.toml`: travel costs 0.02 XP points per block, bounded to 3–50 points, with 50 points for interdimensional travel. This is a common mod config, and the deployment copies it to the live `config/` directory.
+Reboot startup and a daily 05:00 backup are managed by `scripts/install-cron.sh`. Keep the host scheduling timezone at America/New_York and reinstall the managed cron block after changing the active data directory. See [backups](BACKUPS.md) and [performed validation](VALIDATION.md).
 
-`server.properties` binds TCP 25565 to the Tailscale IP. The VPS relays public TCP 25565 to this host; see [networking](NETWORKING.md). Online authentication remains enabled. The whitelist is disabled at the owner's request, so any authenticated player with the compatible pack can join through the public address. To re-enable a whitelist later, change `white-list` and `enforce-whitelist` to `true`, restart, then add player names with `tmux send-keys -t jialiangcraft 'whitelist add PLAYER_NAME' Enter`.
+## Archived modded server and rollback
 
-Packwiz is needed to build and validate the client. Use an installed `packwiz` or place the official Linux binary at `.tools/packwiz` (ignored by Git). For source builds, follow [Packwiz installation](https://packwiz.infra.link/installation/). Python 3.12, Java 21, `tmux`, `curl`, and `tar` are also used.
+The old NeoForge 1.21.1 installation remains at `/home/jgu7/work/jialiangcraft-data`. Preserve its complete world, private FTB metadata, runtime files, and verified pre-switch backup. The fresh vanilla world is independent; never point vanilla at the old world or extract a modded backup over it.
+
+A deliberate rollback uses the historical `v1.1.0` code and the old directory. First stop vanilla with the current checkout's `./jialiangcraft stop`. Then create a separate historical checkout, for example `git worktree add ../MinecraftCATlab-legacy v1.1.0`, and use `JC_DATA_DIR=/home/jgu7/work/jialiangcraft-data ../MinecraftCATlab-legacy/jialiangcraft start`. The archived server requires Java 21 and its matching NeoForge client pack. Confirm the active server before changing the reboot/backup jobs to the legacy checkout.
+
+Both servers share the same tmux name and TCP port, so only one may run at a time. To return to vanilla, stop the legacy server using the historical checkout and explicit old `JC_DATA_DIR`, then start from the current checkout and reinstall its cron block. These are rollback instructions, not an automatic migration or restore.

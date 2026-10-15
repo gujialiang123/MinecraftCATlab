@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 source "$(dirname "$0")/common.sh"
+jc_die 'The active server is vanilla. Use ./jialiangcraft validate; historical pack validation is preserved at tag v1.1.0.'
 PACKWIZ="$(jc_packwiz)"
 VERSION="$(tr -d '\n' < "$JC_ROOT/VERSION")"
 ORIGINAL="$JC_ROOT/dist/JialiangCraft-$VERSION.mrpack"

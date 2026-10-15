@@ -2,13 +2,16 @@
 
 | Problem | Check |
 |---|---|
-| Mod version mismatch | Import the latest `.mrpack`; compare versions in `docs/MODLIST.md` and the server log. |
-| Incompatible loader version | Use Minecraft 1.21.1 with NeoForge 21.1.252 exactly. |
-| Failed dependency | Read `./jialiangcraft logs`; verify all server JARs against Packwiz metadata with `./jialiangcraft update`. |
-| Client crash | Use Java 21, update Prism Launcher, and inspect its latest instance log. |
-| Server crash loop | Check `/home/jgu7/work/jialiangcraft-data/logs/latest.log` and `crash-reports/`; do not delete the world. |
+| Incompatible client version | Launch vanilla Minecraft Java Edition 26.3 in a fresh instance. The old NeoForge 1.21.1 modpack is historical. |
+| Account authentication fails | Sign in with a legitimate Microsoft/Minecraft account; the server keeps `online-mode=true`. |
+| Server fails to start | Read `./jialiangcraft logs` and `/home/jgu7/work/jialiangcraft-vanilla-26.3-data/logs/latest.log`; preserve the world and crash reports. |
+| Wrong Java version | The active server uses isolated `.tools/java25`; inspect the pinned Java runtime rather than changing the host default. |
 | Cannot connect from the internet | Check VPS `jialiangcraft-minecraft.service`, AWS inbound TCP 25565, and the lab server log. |
-| Cannot connect over Tailscale | Check `tailscale status`, shared tailnet access, online authentication, and TCP 25565. |
-| Voice chat fails | Voice chat is Tailscale-only. Check UDP 24454, Tailscale policy, in-game V menu, and `voicechat-server.properties`. |
-| Out of memory | Check host RAM and Java's `-Xmx8G`; avoid increasing heap without evidence. |
-| TPS lag | Inspect loaded chunks, farms, and server log; lower simulation distance only after measuring. |
+| Cannot connect over Tailscale | Check Tailscale connectivity, the `100.112.93.136:25565` listener, and account authentication. |
+| Restore rejected | Use a backup for the matching vanilla runtime. Restore old modded backups only with historical tooling and the old data directory after stopping vanilla. |
+| Legacy Packwiz command rejected | The active server is vanilla. Use `deploy`, `update`, and `validate`; historical pack tooling must not modify the active installation. |
+| Out of memory or resource pressure | Inspect process memory and host load. The JVM heap is limited to 4 GiB, but native memory adds overhead; four JVM-visible processors are not a CPU quota. |
+| TPS lag | Measure loaded chunks, farms, and tick load before changing view/simulation distance or raising resource limits on the shared lab machine. |
+| Voice chat unavailable | The active vanilla server does not include a voice chat mod. |
+
+The old modded world is retained at `/home/jgu7/work/jialiangcraft-data`. Follow [server rollback instructions](SERVER.md) if intentionally returning to it; never copy that world into the vanilla directory.

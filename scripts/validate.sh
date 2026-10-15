@@ -1,32 +1,28 @@
 #!/usr/bin/env bash
 source "$(dirname "$0")/common.sh"
-PACKWIZ="$(jc_packwiz)"
-cd "$JC_ROOT/pack"
-"$PACKWIZ" refresh >/dev/null
-[[ "$(sed -n 's/^minecraft = "\([^"]*\)"/\1/p' pack.toml)" == 1.21.1 ]] || jc_die 'Wrong Minecraft version'
-[[ "$(sed -n 's/^neoforge = "\([^"]*\)"/\1/p' pack.toml)" == 21.1.252 ]] || jc_die 'Wrong NeoForge version'
-for mod in create modern-industrialization ae2 farmers-delight aether yungs-better-dungeons appleskin corpse natures-compass explorers-compass architectury-api; do
-  [[ -f "mods/$mod.pw.toml" ]] || jc_die "Missing core mod: $mod"
-done
-for mod in create modern-industrialization ae2 farmers-delight aether yungs-better-dungeons appleskin corpse natures-compass explorers-compass architectury-api; do
-  filename="$(sed -n 's/^filename = "\([^"]*\)"/\1/p' "mods/$mod.pw.toml")"
-  [[ -f "$JC_DATA_DIR/mods/$filename" ]] || jc_die "Core server JAR missing: $filename"
-done
-for mod in ftb-ultimine ftb-library; do
-  metadata="$JC_DATA_DIR/private-mods/$mod.pw.toml"
-  [[ -f "$metadata" ]] || jc_die "Private server metadata missing: $mod"
-  filename="$(sed -n 's/^filename = "\([^"]*\)"/\1/p' "$metadata")"
-  [[ -f "$JC_DATA_DIR/mods/$filename" ]] || jc_die "Private server JAR missing: $filename"
-done
-VERSION="$(tr -d '\n' < "$JC_ROOT/VERSION")"
-MRPACK="$JC_ROOT/dist/JialiangCraft-$VERSION.mrpack"
-[[ -f "$MRPACK" ]] || jc_die 'Client pack was not built'
-python3 "$JC_ROOT/scripts/inspect-mrpack.py" "$MRPACK"
+jc_assert_session_data
+python3 - "$JC_ROOT" "$JC_DATA_DIR" <<'PY'
+import hashlib, json, sys
+from pathlib import Path
+root, data = map(Path, sys.argv[1:])
+lock = json.loads((root / 'server/vanilla.lock.json').read_text())
+assert json.loads((data / '.runtime.json').read_text()) == lock, 'Runtime metadata mismatch'
+jar = data / 'server.jar'
+assert jar.stat().st_size == lock['server_size'], 'Server JAR size mismatch'
+assert hashlib.sha1(jar.read_bytes()).hexdigest() == lock['server_sha1'], 'Server JAR checksum mismatch'
+assert not (data / 'mods').exists(), 'Unexpected mod directory'
+assert not (data / 'plugins').exists(), 'Unexpected plugin directory'
+assert (data / 'world/level.dat').stat().st_size > 0, 'No saved world'
+assert not list((data / 'world/datapacks').glob('*')), 'Unexpected custom datapacks'
+props = dict(line.split('=', 1) for line in (data / 'server.properties').read_text().splitlines() if '=' in line and not line.startswith('#'))
+for key, value in {'gamemode':'survival', 'difficulty':'normal', 'hardcore':'false', 'online-mode':'true', 'white-list':'false', 'server-ip':'100.112.93.136', 'server-port':'25565', 'level-name':'world'}.items():
+    assert props.get(key) == value, f'Unexpected {key}: {props.get(key)}'
+print(f'Verified official vanilla {lock["minecraft"]}, saved survival world, and server settings')
+PY
 jc_running || jc_die 'Minecraft server is not running'
 [[ -f "$JC_DATA_DIR/logs/latest.log" ]] || jc_die 'Minecraft log missing'
-grep -Eq 'Done \([0-9.]+s\)! For help' "$JC_DATA_DIR/logs/latest.log" || jc_die 'No successful startup marker in log'
-! grep -Eiq 'ModLoadingException|Missing mandatory dependencies|Failed to load mod|Failed to start the minecraft server' "$JC_DATA_DIR/logs/latest.log" || jc_die 'Fatal mod or startup error found in log'
-ss -ltn '( sport = :25565 )' | grep -Fq '100.112.93.136:25565' || jc_die 'Minecraft is not listening on Tailscale TCP 25565'
-ss -lun '( sport = :24454 )' | grep -Eq '100[.]112[.]93[.]136[]]?:24454' || jc_die 'Voice chat is not listening on Tailscale UDP 24454'
-grep -Fq 'scaled_add_xp_cost(distance, 0.02)' "$JC_DATA_DIR/config/waystones-common.toml" || jc_die 'Waystones cost config was not deployed'
-jc_log 'Pack metadata, core mods, client export, startup log, and private ports validated'
+! grep -Eiq 'Failed to start the minecraft server|Exception in server tick loop|FAILED TO BIND TO PORT' "$JC_DATA_DIR/logs/latest.log" || jc_die 'Fatal startup error found in log'
+EXPECTED_VERSION="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["minecraft"])' "$JC_ROOT/server/vanilla.lock.json")"
+python3 "$JC_ROOT/scripts/minecraft-status.py" 100.112.93.136 25565 --expect-version "$EXPECTED_VERSION"
+ss -ltn '( sport = :25565 )' | grep -Eq '100[.]112[.]93[.]136[]]?:25565' || jc_die 'Minecraft is not listening on Tailscale TCP 25565'
+jc_log 'Vanilla artifact, world, survival settings, game protocol, and TCP listener validated'

@@ -1,0 +1,7 @@
+{
+  "vendor": "Eclipse Temurin",
+  "version": "25.0.4.1+1",
+  "java_version": "25.0.4.1",
+  "url": "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jre_x64_linux_hotspot_25.0.4.1_1.tar.gz",
+  "sha256": "1731a34baadec5479258ea0202e4d5d865d2efeee60cb0c7d7eb056fe96ca219"
+}

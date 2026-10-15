@@ -1,20 +1,19 @@
 # JialiangCraft
 
-**Minecraft 1.21.1 · NeoForge 21.1.252 · 2–4 players**
+**Minecraft Java Edition 26.3 · Official vanilla survival · Up to 4 players**
 
-A small survival pack that grows from **Vanilla → Create → Modern Industrialization → Applied Energistics 2**. Farmer's Delight, The Aether, and improved dungeons add food and exploration without replacing the main progression.
-
-Waystones cost experience (3–50 points based on distance; interdimensional travel costs 50 points), so Create trains and other physical travel remain useful.
+The current server configuration uses a fresh random world, normal difficulty, and the official Minecraft server. No mods, plugins, or extra datapacks are required.
 
 ## How to play
 
-1. Install [Prism Launcher](https://prismlauncher.org/).
-2. Download [JialiangCraft-1.1.0.mrpack](https://github.com/gujialiang123/MinecraftCATlab/releases/download/v1.1.0/JialiangCraft-1.1.0.mrpack) from GitHub Releases.
-3. In Prism Launcher, select **Add Instance → Import** and choose the `.mrpack`.
-4. Download [FTB Ultimine 2101.1.15](https://www.curseforge.com/minecraft/mc-mods/ftb-ultimine-forge/files/8231400) and [FTB Library 2101.1.37](https://www.curseforge.com/minecraft/mc-mods/ftb-library-forge/files/9008089) from their official CurseForge pages. Add both **NeoForge 1.21.1** JARs to the imported instance's **Mods** tab before launching. These two required mods are not included in the GitHub `.mrpack`.
-5. Use Java 21, sign in with a legitimate Microsoft/Minecraft account, then click **Launch**.
-6. Open **Multiplayer → JialiangCraft**. The server is preconfigured as `98.93.3.136:25565`.
+1. Select **Minecraft: Java Edition 26.3** in the official launcher, or create a fresh vanilla 26.3 instance in Prism Launcher.
+2. Sign in with a legitimate Microsoft/Minecraft account and launch the game.
+3. Open **Multiplayer → Add Server** and enter **`98.93.3.136:25565`**.
 
-Version 1.1.0 adds Corpse, AppleSkin, Nature's Compass, and Explorer's Compass to the base pack; Architectury API is included as a dependency. The server also runs the two FTB mods, so both manual client downloads are required to join. There is no server password or whitelist. Players with permitted Tailscale access can also connect directly to `100.112.93.136:25565`. Simple Voice Chat remains on the private Tailscale network; its UDP port is not forwarded publicly.
+The whitelist is disabled and there is no server password. Tailscale members can also connect directly to `100.112.93.136:25565`.
 
-For details: [client](docs/CLIENT.md), [mod list](docs/MODLIST.md), [networking](docs/NETWORKING.md), [troubleshooting](docs/TROUBLESHOOTING.md).
+The new world lives outside Git at `/home/jgu7/work/jialiangcraft-vanilla-26.3-data`. The old NeoForge 1.21.1 world remains separately at `/home/jgu7/work/jialiangcraft-data`; it is not imported into vanilla. The [v1.1.0 modpack release](https://github.com/gujialiang123/MinecraftCATlab/releases/tag/v1.1.0) is historical and is not the client for this server.
+
+The server uses isolated Java 25, a 1 GiB initial / 4 GiB maximum heap, four JVM-visible processors, and lower scheduling priority to reduce its impact on the shared lab machine. These settings do not impose a hard total memory or CPU quota. Daily backups and reboot startup use the existing operations CLI.
+
+See [client setup](docs/CLIENT.md), [server operations](docs/SERVER.md), [backups](docs/BACKUPS.md), [networking](docs/NETWORKING.md), and [validation results](docs/VALIDATION.md).

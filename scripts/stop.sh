@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 source "$(dirname "$0")/common.sh"
+jc_assert_session_data
 if ! jc_running; then jc_log 'Already stopped'; exit 0; fi
 tmux send-keys -t "$JC_SESSION" 'stop' Enter
 for _ in {1..180}; do

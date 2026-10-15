@@ -1,4 +1,6 @@
-# Mod list
+# Historical mod list — v1.1.0
+
+This page records the archived Minecraft 1.21.1 / NeoForge 21.1.252 pack. The active Minecraft Java Edition 26.3 server is vanilla and uses none of these mods. For current connection instructions, see [client setup](CLIENT.md).
 
 The GitHub base pack uses `pack/mods/*.pw.toml` as its source of truth. Its 26 files use exact versions and SHA-512 hashes. FTB Ultimine and FTB Library are required separately on the server and on every player's client; they are not in the GitHub `.mrpack`.
 
@@ -31,13 +33,13 @@ The GitHub base pack uses `pack/mods/*.pw.toml` as its source of truth. Its 26 f
 | YUNG's API | `1.21.1-NeoForge-5.1.9` | server | YUNG structures dependency | [Modrinth](https://modrinth.com/mod/yungs-api/version/2prKITKh) |
 | YUNG's Better Dungeons | `1.21.1-NeoForge-5.1.4` | server | Improved dungeon structures | [Modrinth](https://modrinth.com/mod/yungs-better-dungeons/version/D6aZn0Em) |
 
-## Required manual additions
+## Historical required manual additions
 
-These files are installed privately on the server. Each player must download and add the exact matching **NeoForge 1.21.1** files to their Prism Launcher instance's **Mods** tab before joining.
+For the archived modded server, these files were installed privately. Its clients require the exact matching **NeoForge 1.21.1** files to their Prism Launcher instance's **Mods** tab before joining.
 
 | Mod | Exact version and file | Side | Purpose | Official download |
 |---|---|---|---|---|
 | FTB Library | `2101.1.37` · `ftb-library-neoforge-2101.1.37.jar` | both | FTB Ultimine dependency | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/ftb-library-forge/files/9008089) |
 | FTB Ultimine | `2101.1.15` · `ftb-ultimine-neoforge-2101.1.15.jar` | both | Mine connected blocks and fell trees | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/ftb-ultimine-forge/files/8231400) |
 
-Total at runtime: 28 mods (26 in the GitHub base pack and 2 installed separately).
+Historical total at runtime: 28 mods (26 in the GitHub base pack and 2 installed separately).

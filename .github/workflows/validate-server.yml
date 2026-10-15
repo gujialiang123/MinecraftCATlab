@@ -1,0 +1,21 @@
+name: Validate vanilla server configuration
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check scripts and pinned configuration
+        run: |
+          for script in jialiangcraft scripts/*.sh; do bash -n "$script"; done
+          python3 -m compileall -q scripts
+          python3 -B -m unittest discover -s tests -p 'test_*.py' -v
+          python3 -c 'import json; from pathlib import Path; a=json.loads(Path("server/vanilla.lock.json").read_text()); b=json.loads(Path("server/java.lock.json").read_text()); assert a["type"] == "vanilla" and a["minecraft"] == "26.3" and a["java_major"] == 25; assert b["java_version"].startswith("25.")'

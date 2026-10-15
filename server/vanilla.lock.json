@@ -1,0 +1,10 @@
+{
+  "type": "vanilla",
+  "minecraft": "26.3",
+  "java_major": 25,
+  "metadata_url": "https://piston-meta.mojang.com/v1/packages/11f1aefe473eefba0af62e3286c33b692807b2eb/26.3.json",
+  "metadata_sha1": "11f1aefe473eefba0af62e3286c33b692807b2eb",
+  "server_url": "https://piston-data.mojang.com/v1/objects/33680f5f2ac32864d6d7cf5e56a705fdb3e05f4c/server.jar",
+  "server_sha1": "33680f5f2ac32864d6d7cf5e56a705fdb3e05f4c",
+  "server_size": 62294556
+}
